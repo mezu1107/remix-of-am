@@ -1,0 +1,293 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 14px);
+  --radius-3xl: calc(var(--radius) + 22px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* AM Enterprises brand tokens
+     cream    = #FFFFFF  primary white background
+     sand     = #F5FAFF  ice-blue section background
+     espresso = #0B1726  heading navy
+     cocoa    = #2F8FFF  primary blue
+     copper   = #1769C2  deep blue accent */
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+  --color-espresso: var(--espresso);
+  --color-copper: var(--copper);
+  --color-cocoa: var(--cocoa);
+
+  --shadow-luxury: 0 30px 60px -20px rgba(11, 23, 38, 0.14);
+  --shadow-soft: 0 8px 28px -10px rgba(11, 23, 38, 0.09);
+}
+
+:root {
+  --radius: 1rem;
+
+  /* Brand palette */
+  --cream: #ffffff;
+  --sand: #F5FAFF;
+  --ice-blue: #EAF6FF;
+  --espresso: #0B1726;
+  --cocoa: #2F8FFF;
+  --copper: #1769C2;
+  --body-text: #526273;
+  --glow: #8DD3FF;
+
+  /* Radix / shadcn compatibility */
+  --background: #ffffff;
+  --foreground: #0B1726;
+  --card: #ffffff;
+  --card-foreground: #0B1726;
+  --popover: #ffffff;
+  --popover-foreground: #0B1726;
+  --primary: #2F8FFF;
+  --primary-foreground: #ffffff;
+  --secondary: #F5FAFF;
+  --secondary-foreground: #0B1726;
+  --muted: #F5FAFF;
+  --muted-foreground: #526273;
+  --accent: #1769C2;
+  --accent-foreground: #ffffff;
+  --destructive: #d64545;
+  --destructive-foreground: #ffffff;
+  --border: #DCEAF5;
+  --input: #DCEAF5;
+  --ring: #2F8FFF;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--body-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--espresso);
+  }
+
+  /* Scroll progress bar */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cocoa), var(--copper));
+    z-index: 100;
+    transition: width 0.1s linear;
+  }
+
+  /* Safe area bottom */
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+  /* ─── Reveal animations ─────────────────────────────────────────────── */
+  .is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* ─── Marquee ────────────────────────────────────────────────────────── */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes marqueeReverse {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  .marquee-track         { animation: marquee 32s linear infinite; }
+  .marquee-track-reverse { animation: marqueeReverse 36s linear infinite; }
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  }
+  .marquee-pause:hover .marquee-track,
+  .marquee-pause:hover .marquee-track-reverse {
+    animation-play-state: paused;
+  }
+
+  /* ─── Slide-in ───────────────────────────────────────────────────────── */
+  @keyframes slideInUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .slide-in { animation: slideInUp 0.45s ease-out; }
+
+  /* ─── Pulse ring ─────────────────────────────────────────────────────── */
+  @keyframes softPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(47, 143, 255, 0.4); }
+    50%       { box-shadow: 0 0 0 12px rgba(47, 143, 255, 0); }
+  }
+  .pulse-ring { animation: softPulse 2.2s infinite; }
+
+  /* ─── Scroll animation for clients strip ────────────────────────────── */
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── Glass surfaces ─────────────────────────────────────────────────── */
+  .glass {
+    background: color-mix(in oklab, #ffffff 82%, transparent);
+    backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid color-mix(in oklab, #2F8FFF 10%, transparent);
+  }
+  .glass-dark {
+    background: color-mix(in oklab, #0B1726 85%, transparent);
+    backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid color-mix(in oklab, #2F8FFF 18%, transparent);
+  }
+
+  /* ─── 3D card system ─────────────────────────────────────────────────── */
+  .scene-3d { perspective: 1100px; perspective-origin: 50% 30%; }
+
+  .card-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition:
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow:
+      0 1px 0 0 color-mix(in oklab, #ffffff 65%, transparent) inset,
+      0 -1px 0 0 color-mix(in oklab, #0B1726 6%, transparent) inset,
+      0 8px 18px -12px color-mix(in oklab, #0B1726 22%, transparent),
+      0 24px 48px -28px color-mix(in oklab, #0B1726 18%, transparent);
+  }
+
+  .card-3d::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, #ffffff 30%, transparent) 0%,
+      transparent 38%,
+      transparent 62%,
+      color-mix(in oklab, #0B1726 6%, transparent) 100%
+    );
+    opacity: 0.8;
+    transition: opacity 0.5s ease;
+  }
+
+  .card-3d > * { transform: translateZ(0.01px); }
+
+  @media (max-width: 767px) {
+    .card-3d {
+      transform: perspective(900px) rotateX(3deg) translateZ(0);
+    }
+    .card-3d:active {
+      transform: perspective(900px) rotateX(1deg) translateY(2px) scale(0.997);
+    }
+  }
+
+  @media (min-width: 768px) and (hover: hover) {
+    .card-3d:hover {
+      transform: perspective(1100px) rotateX(5deg) rotateY(-4deg) translateY(-8px) scale(1.012);
+      box-shadow:
+        0 1px 0 0 color-mix(in oklab, #ffffff 70%, transparent) inset,
+        0 -1px 0 0 color-mix(in oklab, #0B1726 6%, transparent) inset,
+        0 20px 30px -20px color-mix(in oklab, #0B1726 32%, transparent),
+        0 44px 72px -32px color-mix(in oklab, #0B1726 26%, transparent);
+    }
+    .card-3d:hover::before { opacity: 1; }
+  }
+
+  /* ─── Floating plate animation (hero visual) ─────────────────────────── */
+  @keyframes plateFloat {
+    0%, 100% { transform: rotateX(14deg) rotateY(-16deg) translate3d(0, 0, 0); }
+    50%       { transform: rotateX(14deg) rotateY(-16deg) translate3d(0, -12px, 28px); }
+  }
+  @keyframes plateFloatAlt {
+    0%, 100% { transform: rotateX(14deg) rotateY(-16deg) translate3d(0, 0, 38px); }
+    50%       { transform: rotateX(14deg) rotateY(-16deg) translate3d(0, -16px, 70px); }
+  }
+  .plate-3d     { transform-style: preserve-3d; animation: plateFloat    7s ease-in-out infinite; }
+  .plate-3d-alt { transform-style: preserve-3d; animation: plateFloatAlt 7s ease-in-out infinite 0.6s; }
+
+  /* ─── Service orbit (used in some visuals) ───────────────────────────── */
+  @keyframes serviceOrbit        { to { transform: rotate(360deg); } }
+  @keyframes serviceOrbitReverse { to { transform: rotate(-360deg); } }
+  @keyframes serviceFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%       { transform: translateY(-7px) scale(1.03); }
+  }
+  .service-orbit         { animation: serviceOrbit        14s linear infinite; border-top-color: var(--cocoa); }
+  .service-orbit-reverse { animation: serviceOrbitReverse 10s linear infinite; border-bottom-color: var(--cocoa); }
+  .service-icon-float    { animation: serviceFloat 3s ease-in-out infinite; }
+
+  /* ─── Reduced motion ─────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .card-3d, .plate-3d, .plate-3d-alt,
+    .service-orbit, .service-orbit-reverse, .service-icon-float,
+    .marquee-track, .marquee-track-reverse { animation: none; transition: none; }
+  }
+}
+
+/* ─── Reveal utilities ────────────────────────────────────────────────────── */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+@utility reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@utility reveal-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@utility reveal-zoom {
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+}
