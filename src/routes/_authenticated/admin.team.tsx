@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_authenticated/admin/team")({
       orderBy={{ column: "sort_order", ascending: true }}
       fields={[
         { name: "name", label: "Name", type: "text", required: true },
-        { name: "slug", label: "Slug (URL, e.g. shafqat)", type: "text" },
+        { name: "slug", label: "Slug (URL e.g. moez-rehman)", type: "text" },
         { name: "role_title", label: "Role", type: "text" },
         { name: "bio", label: "Short bio", type: "textarea" },
         { name: "long_bio", label: "Full bio", type: "textarea" },

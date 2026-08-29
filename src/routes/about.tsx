@@ -267,13 +267,13 @@ function AboutPage() {
       <section className="py-20">
         <div className="mx-auto max-w-[1280px] px-8">
           <Reveal>
-            <div className="overflow-hidden rounded-2xl bg-espresso p-10 text-white sm:p-14">
-              <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-cocoa/15 blur-3xl" />
+            <div className="relative overflow-hidden rounded-2xl bg-[#0B1726] p-10 sm:p-14">
+              <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#2F8FFF]/15 blur-3xl" />
               <div className="relative max-w-2xl">
-                <h2 className="font-display text-3xl font-black sm:text-4xl">
+                <h2 className="font-display text-3xl font-black text-white sm:text-4xl">
                   Ready to build the digital system your business actually needs?
                 </h2>
-                <p className="mt-4 text-base leading-relaxed text-white/60">
+                <p className="mt-4 text-base leading-relaxed text-white/75">
                   Let's talk. We'll listen, ask the right questions and tell you honestly what we think is worth building.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">

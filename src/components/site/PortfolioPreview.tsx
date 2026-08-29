@@ -4,88 +4,85 @@ import { Reveal } from "@/components/site/Reveal";
 import { useLiveList } from "@/lib/use-live-list";
 
 type Project = {
-  id: string;
-  title: string;
-  category: string | null;
-  description: string | null;
-  image_url: string | null;
-  link_url: string | null;
-  featured: boolean;
+  id: string; title: string; category: string | null;
+  description: string | null; image_url: string | null;
+  link_url: string | null; featured: boolean;
 };
 
 export function PortfolioPreview() {
   const { rows } = useLiveList<Project>("portfolio", { orderBy: { column: "sort_order" } });
   if (rows.length === 0) return null;
 
-  const featured = rows.filter((r) => r.featured);
-  const shown    = (featured.length >= 6 ? featured : rows).slice(0, 6);
+  const shown = (rows.filter(r => r.featured).length >= 6
+    ? rows.filter(r => r.featured)
+    : rows
+  ).slice(0, 6);
 
   return (
-    <section className="bg-white py-24 sm:py-28">
+    <section id="work" className="bg-[#F5FAFF] py-20 lg:py-28">
       <div className="mx-auto max-w-[1280px] px-8">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div className="max-w-xl">
-            <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-cocoa/20 bg-cocoa/8 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-cocoa">
-                <span className="h-1.5 w-1.5 rounded-full bg-cocoa" /> Selected work
-              </span>
-            </Reveal>
-            <Reveal delay={80}>
-              <h2 className="mt-4 font-display text-3xl font-black leading-[1.06] tracking-tight text-espresso sm:text-4xl">
-                Real projects, live in production
-              </h2>
-            </Reveal>
-            <Reveal delay={160}>
-              <p className="mt-4 text-base leading-relaxed text-body-text">
-                Websites, web applications, ERP systems, e-commerce platforms and custom digital tools — built, launched and running.
+        {/* Section heading */}
+        <Reveal>
+          <div className="mb-12 flex flex-col items-center gap-2 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
+            <div>
+              <div className="flex items-center justify-center gap-3 sm:justify-start">
+                <span className="h-px w-10 bg-[#2F8FFF]" />
+                <h2 className="font-display text-3xl font-black tracking-tight text-[#0B1726] sm:text-4xl">
+                  Selected Work
+                </h2>
+                <span className="h-px w-10 bg-[#2F8FFF]" />
+              </div>
+              <p className="mt-2 text-sm text-[#526273]">
+                Real projects. Real businesses. Live in production.
               </p>
-            </Reveal>
-          </div>
-          <Reveal delay={200}>
+            </div>
             <Link
               to="/portfolio"
-              className="inline-flex items-center gap-2 rounded-xl bg-espresso px-6 py-3 text-sm font-bold text-white transition hover:bg-cocoa"
+              className="hidden shrink-0 items-center gap-1.5 text-sm font-bold text-[#2F8FFF] transition hover:gap-2.5 sm:inline-flex"
             >
               View all {rows.length} projects <ArrowUpRight className="h-4 w-4" />
             </Link>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Grid */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((p, i) => (
-            <Reveal key={p.id} delay={(i % 3) * 60}>
+            <Reveal key={p.id} delay={(i % 3) * 65}>
               <a
                 href={p.link_url ?? "#"}
                 target={p.link_url ? "_blank" : undefined}
                 rel="noreferrer"
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white transition hover:border-cocoa/25 hover:shadow-soft"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#DCEAF5] bg-white shadow-soft transition duration-300 hover:-translate-y-2 hover:shadow-luxury hover:border-[#2F8FFF]/25"
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-sand">
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#F5FAFF]">
                   {p.image_url ? (
                     <img
                       src={p.image_url}
                       alt={p.title}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      className="h-full w-full object-cover transition duration-600 group-hover:scale-105"
                       loading="lazy"
                     />
                   ) : (
-                    <div className="grid h-full w-full place-items-center bg-gradient-to-br from-espresso to-[#0B2D50] px-6 text-center">
-                      <span className="font-display text-lg font-black text-cocoa">{p.title}</span>
+                    <div className="grid h-full w-full place-items-center bg-gradient-to-br from-[#0B1726] to-[#0B2D50] px-6 text-center">
+                      <span className="font-display text-lg font-black text-[#8DD3FF]">{p.title}</span>
                     </div>
                   )}
-                  <div className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/90 text-espresso opacity-0 shadow-soft transition group-hover:opacity-100">
+                  <div className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/90 text-[#0B1726] opacity-0 shadow-soft transition group-hover:opacity-100">
                     <ArrowUpRight className="h-4 w-4" />
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   {p.category && (
-                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-cocoa">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#2F8FFF]">
                       {p.category}
                     </p>
                   )}
-                  <h3 className="mt-1.5 font-display text-lg font-black text-espresso">{p.title}</h3>
+                  <h3 className="mt-1.5 font-display text-base font-black text-[#0B1726] transition group-hover:text-[#2F8FFF]">
+                    {p.title}
+                  </h3>
                   {p.description && (
-                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-body-text">
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-[#526273] line-clamp-2">
                       {p.description}
                     </p>
                   )}
@@ -94,6 +91,17 @@ export function PortfolioPreview() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={200}>
+          <div className="mt-10 text-center">
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center gap-2 rounded-xl border border-[#DCEAF5] bg-white px-7 py-3 text-sm font-bold text-[#0B1726] shadow-soft transition hover:border-[#2F8FFF]/40 hover:bg-[#EAF6FF] hover:text-[#2F8FFF]"
+            >
+              View All Projects <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

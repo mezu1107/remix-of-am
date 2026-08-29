@@ -10,10 +10,10 @@ import { useApplyPageSeo } from "@/lib/page-seo";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Blog — AYMOXI" },
-      { name: "description", content: "Insights, guides and field notes on software engineering, AI automation, product design and digital marketing from the AYMOXI team." },
-      { property: "og:title", content: "Blog — AYMOXI" },
-      { property: "og:description", content: "Insights, guides and field notes on software engineering, AI automation, product design and digital marketing from the AYMOXI team." },
+      { title: "Insights — AM Enterprises" },
+      { name: "description", content: "Thinking on technology, product development, digital ecosystems and business from the AM Enterprises team." },
+      { property: "og:title", content: "Insights — AM Enterprises" },
+      { property: "og:description", content: "Thinking on technology, product development, digital ecosystems and business from the AM Enterprises team." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL + "/blog" },
     ],
@@ -40,7 +40,7 @@ function BlogPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Blog" title="Notes from the workshop." description="Field-tested ideas on building premium software." />
+      <PageHeader eyebrow="Insights" title="Notes from the team." description="Thinking on technology, digital ecosystems and how businesses build better products." />
 
       <section className="pb-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -50,15 +50,15 @@ function BlogPage() {
                 <button
                   key={c}
                   onClick={() => setTag(c)}
-                  className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
-                    tag === c ? "bg-cocoa text-cream" : "border border-border bg-card text-espresso hover:border-copper"
+                  className={`rounded-xl px-4 py-1.5 text-xs font-semibold transition ${
+                    tag === c ? "bg-[#2F8FFF] text-white" : "border border-[#DCEAF5] bg-white text-[#0B1726] hover:border-[#2F8FFF]/30"
                   }`}
                 >
                   {c}
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 shadow-soft sm:w-72">
+            <div className="flex items-center gap-2 rounded-xl border border-[#DCEAF5] bg-[#F5FAFF] px-5 py-2.5 shadow-soft sm:w-72">
               <Search className="h-4 w-4 text-espresso/50" />
               <input
                 value={q}
@@ -77,7 +77,7 @@ function BlogPage() {
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {visible.map((p, i) => (
                 <Reveal key={p.id} delay={(i % 3) * 80}>
-                  <Link to="/blog/$slug" params={{ slug: p.slug }} className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-luxury">
+                <Link to="/blog/$slug" params={{ slug: p.slug }} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#DCEAF5] bg-white transition hover:-translate-y-1 hover:border-[#2F8FFF]/25 hover:shadow-soft">
                     <div className="aspect-[16/10] overflow-hidden bg-sand">
                       {p.cover_url ? (
                         <img src={p.cover_url} alt={p.title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />

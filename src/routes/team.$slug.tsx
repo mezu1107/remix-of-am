@@ -82,8 +82,8 @@ function MemberPage() {
               {m.photo_url ? (
                 <img src={m.photo_url} alt={m.name} className="h-full w-full object-cover" />
               ) : (
-                <div className="grid h-full w-full place-items-center bg-gradient-to-br from-[#2e6b16] to-[#0a2205]">
-                  <span className="font-display text-5xl font-black text-copper">{m.name.slice(0, 1)}</span>
+                <div className="grid h-full w-full place-items-center bg-gradient-to-br from-[#0B1726] to-[#0B2D50]">
+                  <span className="font-display text-5xl font-black text-[#8DD3FF]">{m.name.slice(0, 1)}</span>
                 </div>
               )}
             </div>

@@ -300,7 +300,7 @@ function ContactPage() {
       </section>
 
       {/* Bottom CTA strip */}
-      <section className="border-t border-border bg-sand py-14">
+      <section className="border-t border-[#DCEAF5] bg-[#F5FAFF] py-14">
         <div className="mx-auto max-w-[1280px] px-8">
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>

@@ -12,7 +12,7 @@ export type PixelRow = {
   enabled: boolean;
 };
 
-const MARK = "data-aymoxi-pixel";
+const MARK = "data-am-pixel";
 
 function addScript(id: string, opts: { src?: string; code?: string; async?: boolean }) {
   if (document.querySelector(`script[${MARK}="${id}"]`)) return;

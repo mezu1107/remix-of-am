@@ -62,7 +62,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   // Auto-recover once from transient first-load failures instead of showing an error page.
   useEffect(() => {
     if (typeof window === "undefined" || !isTransient(error)) return;
-    const KEY = "aymoxi_auto_recover";
+    const KEY = "am_auto_recover";
     if (sessionStorage.getItem(KEY)) return;
     sessionStorage.setItem(KEY, "1");
     setRecovering(true);
@@ -72,7 +72,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const t = setTimeout(() => sessionStorage.removeItem("aymoxi_auto_recover"), 8000);
+    const t = setTimeout(() => sessionStorage.removeItem("am_auto_recover"), 8000);
     return () => clearTimeout(t);
   }, []);
 

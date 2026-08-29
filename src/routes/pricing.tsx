@@ -71,7 +71,7 @@ function PricingPage() {
                     <Link
                       to={(p.cta_url as "/contact") ?? "/contact"}
                       className={`mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${
-                        p.featured ? "bg-copper text-espresso hover:bg-cream" : "bg-cocoa text-cream hover:bg-espresso"
+                        p.featured ? "bg-[#2F8FFF] text-white hover:bg-[#1769C2]" : "bg-[#0B1726] text-white hover:bg-[#2F8FFF]"
                       }`}
                     >
                       {p.cta_label ?? "Get started"}

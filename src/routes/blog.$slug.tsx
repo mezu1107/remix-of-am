@@ -30,8 +30,8 @@ export const Route = createFileRoute("/blog/$slug")({
   },
   head: ({ loaderData, params }) => {
     const p = loaderData?.post;
-    const title = p?.meta_title || p?.title || "Article — AYMOXI";
-    const description = p?.meta_description || p?.excerpt || "Read this article on the AYMOXI blog.";
+    const title = p?.meta_title || p?.title || "Article — AM Enterprises";
+    const description = p?.meta_description || p?.excerpt || "Read this article on the AM Enterprises insights blog.";
     const url = `/blog/${params.slug}`;
     const image = p?.og_image || p?.cover_url || undefined;
     const meta: { title?: string; name?: string; property?: string; content?: string }[] = [
@@ -60,9 +60,9 @@ export const Route = createFileRoute("/blog/$slug")({
             description,
             ...(image ? { image } : {}),
             ...(p?.published_at ? { datePublished: p.published_at } : {}),
-            author: { "@type": p?.author ? "Person" : "Organization", name: p?.author || "AYMOXI" },
-            publisher: { "@type": "Organization", name: "AYMOXI" },
-            mainEntityOfPage: `https://www.aymoxi.com${url}`,
+            author: { "@type": p?.author ? "Person" : "Organization", name: p?.author || "AM Enterprises" },
+            publisher: { "@type": "Organization", name: "AM Enterprises" },
+            mainEntityOfPage: `https://www.amenterprise.tech${url}`,
           }),
         },
       ],
@@ -114,23 +114,24 @@ function BlogPost() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#123409] via-[#0f2d08] to-[#0a2205] pt-32 pb-16 text-white">
-        <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-copper/20 blur-3xl" />
+      <section className="relative overflow-hidden bg-[#0B1726] pt-32 pb-16 text-white">
+        <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-[#2F8FFF]/15 blur-3xl" />
         <div className="relative mx-auto max-w-4xl px-5 sm:px-6 lg:px-8">
-          <Link to="/blog" className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 hover:text-copper">
+          <Link to="/blog" className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/65 transition hover:text-[#8DD3FF]">
             <ArrowLeft className="h-3.5 w-3.5" /> All articles
           </Link>
-          <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-white/70">
+          <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-white/65">
             {(post.tags ?? []).slice(0, 2).map((t) => (
-              <span key={t} className="rounded-full bg-white/10 px-2.5 py-1 font-semibold uppercase tracking-widest">{t}</span>
+              <span key={t} className="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 font-semibold uppercase tracking-widest text-white/80">{t}</span>
             ))}
             {post.published_at && (
               <span className="inline-flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(post.published_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}</span>
             )}
             {post.author && <span className="inline-flex items-center gap-1"><User className="h-3 w-3" /> {post.author}</span>}
           </div>
-          <h1 className="mt-4 font-display text-4xl font-black leading-tight sm:text-5xl">{post.title}</h1>
-          {post.excerpt && <p className="mt-4 max-w-2xl text-lg text-white/75">{post.excerpt}</p>}
+          {/* Full-white heading on dark bg */}
+          <h1 className="mt-4 font-display text-4xl font-black leading-tight text-white sm:text-5xl">{post.title}</h1>
+          {post.excerpt && <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75">{post.excerpt}</p>}
         </div>
       </section>
 

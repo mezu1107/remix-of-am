@@ -2,17 +2,12 @@ import * as Icons from "lucide-react";
 import { ShieldCheck } from "lucide-react";
 import { useLiveList } from "@/lib/use-live-list";
 
-type BadgeRow = {
-  id: string;
-  label: string;
-  sublabel: string | null;
-  icon: string;
-};
+type BadgeRow = { id: string; label: string; sublabel: string | null; icon: string };
 
 function iconFor(name: string) {
   const key = name
     .split(/[-_\s]/)
-    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+    .map(p => p.charAt(0).toUpperCase() + p.slice(1))
     .join("");
   const found =
     (Icons as unknown as Record<string, unknown>)[key] ??
@@ -26,24 +21,24 @@ export function TrustBar() {
   const loop = [...rows, ...rows];
 
   return (
-    <section className="border-b border-border bg-white py-8">
-      <p className="text-center text-[11px] font-bold uppercase tracking-[0.28em] text-espresso/40">
+    <section className="border-b border-[#DCEAF5] bg-[#F5FAFF] py-5">
+      <p className="mb-4 text-center text-[10px] font-bold uppercase tracking-[0.28em] text-[#526273]">
         Trusted by businesses across the UK, Pakistan and beyond
       </p>
-      <div className="marquee-mask marquee-pause mt-5 overflow-hidden">
+      <div className="marquee-mask marquee-pause overflow-hidden">
         <div className="marquee-track flex w-max gap-3 px-4">
           {loop.map((b, i) => {
             const Icon = iconFor(b.icon);
             return (
               <div
                 key={`${b.id}-${i}`}
-                className="flex shrink-0 items-center gap-2.5 rounded-xl border border-border bg-sand px-4 py-2.5 transition hover:border-cocoa/25 hover:bg-white"
+                className="flex shrink-0 items-center gap-2 rounded-full border border-[#DCEAF5] bg-white px-4 py-2 shadow-soft transition hover:border-[#2F8FFF]/30 hover:bg-[#EAF6FF]"
               >
-                <Icon className="h-4 w-4 shrink-0 text-cocoa" />
+                <Icon className="h-3.5 w-3.5 shrink-0 text-[#2F8FFF]" />
                 <div>
-                  <p className="whitespace-nowrap text-xs font-bold text-espresso">{b.label}</p>
+                  <p className="whitespace-nowrap text-xs font-bold text-[#0B1726]">{b.label}</p>
                   {b.sublabel && (
-                    <p className="whitespace-nowrap text-[11px] text-body-text">{b.sublabel}</p>
+                    <p className="whitespace-nowrap text-[10px] text-[#526273]">{b.sublabel}</p>
                   )}
                 </div>
               </div>
